@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://jo1lsk45x6s"]
+
+[ext_resource type="Script" uid="uid://cm7hjvi2njh8r" path="res://scripts/quest_item.gd" id="1_4gq7n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8enn"]
+
+[node name="QuestItem" type="Node2D"]
+script = ExtResource("1_4gq7n")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_s8enn")
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_area_2d_body_entered"]

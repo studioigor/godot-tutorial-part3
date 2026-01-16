@@ -1,56 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://xyrv02u17w1f"]
+[gd_scene load_steps=7 format=4 uid="uid://xyrv02u17w1f"]
 
 [ext_resource type="PackedScene" uid="uid://brqbx0dxbd6ex" path="res://scenes/tile_map.tscn" id="1_6cvei"]
-[ext_resource type="Script" uid="uid://cvvphbfu5ukwj" path="res://scripts/player.gd" id="2_que50"]
-[ext_resource type="Texture2D" uid="uid://dgf0l1i3ckg6f" path="res://assets/graphics/Character_animation/priests_idle/priest1/v1/priest1_v1_1.png" id="3_hey2k"]
-[ext_resource type="Texture2D" uid="uid://b2gb5pudfbwxv" path="res://assets/graphics/Character_animation/priests_idle/priest1/v1/priest1_v1_2.png" id="4_172wr"]
-[ext_resource type="Texture2D" uid="uid://cisrvy5yn07x1" path="res://assets/graphics/Character_animation/priests_idle/priest1/v1/priest1_v1_3.png" id="5_g2hoc"]
-[ext_resource type="Texture2D" uid="uid://ciwjf2c4dxfv6" path="res://assets/graphics/Character_animation/priests_idle/priest1/v1/priest1_v1_4.png" id="6_fldb1"]
+[ext_resource type="PackedScene" uid="uid://c5tdcjg1dh3hr" path="res://scenes/player.tscn" id="2_eqxsl"]
+[ext_resource type="PackedScene" uid="uid://bf4ssamplr5j4" path="res://scenes/bone.tscn" id="5_b4j7a"]
 [ext_resource type="PackedScene" uid="uid://ur4ndlxo0erv" path="res://scenes/torch.tscn" id="7_guvtl"]
 [ext_resource type="Script" uid="uid://dmbgub74eymf2" path="res://scripts/change_level.gd" id="9_wdtqu"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_e3sih"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_hey2k")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_hey2k")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_172wr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_g2hoc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_fldb1")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4nkto"]
-radius = 4.0
-
-[sub_resource type="Gradient" id="Gradient_pa8r4"]
-offsets = PackedFloat32Array(0, 0.8764302)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_15mv3"]
-gradient = SubResource("Gradient_pa8r4")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pa8r4"]
-polygon = PackedVector2Array(4, 3, -6, 3, -6, 7, 4, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2y5yt"]
 size = Vector2(5, 20)
@@ -64,30 +18,11 @@ tile_map_data = PackedByteArray("AAABAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAE
 [node name="TileMap2" parent="." instance=ExtResource("1_6cvei")]
 tile_map_data = PackedByteArray("AAAEAAAAAAAEAAcAAAAAAAEAAAAIAAQAAAAAAAIAAAAIAAUAAAA=")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(33, 31)
-collision_layer = 3
-script = ExtResource("2_que50")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-sprite_frames = SubResource("SpriteFrames_e3sih")
-animation = &"walk"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-1, 3)
-shape = SubResource("CircleShape2D_4nkto")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="PointLight2D" type="PointLight2D" parent="Player"]
-scale = Vector2(1.265625, 1.265625)
-texture = SubResource("GradientTexture2D_15mv3")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Player"]
-occluder = SubResource("OccluderPolygon2D_pa8r4")
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.0062500215, 0.0037056135, 0.10858367, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_eqxsl")]
+position = Vector2(35, 30)
 
 [node name="Torch" parent="." instance=ExtResource("7_guvtl")]
 position = Vector2(40, 7)
@@ -105,4 +40,9 @@ target_level = "uid://cmgn7rkp0btkb"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("RectangleShape2D_2y5yt")
 
+[node name="Bone" parent="." instance=ExtResource("5_b4j7a")]
+position = Vector2(104, 23)
+
 [connection signal="body_entered" from="Trigger" to="Trigger" method="_on_body_entered"]
+
+[editable path="Player"]

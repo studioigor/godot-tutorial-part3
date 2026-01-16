@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf4ssamplr5j4"]
+
+[ext_resource type="PackedScene" uid="uid://jo1lsk45x6s" path="res://scenes/item.tscn" id="1_74jvl"]
+[ext_resource type="Resource" uid="uid://cbfq0n4mbwn0d" path="res://quests/quest_1.tres" id="2_oc00q"]
+[ext_resource type="Resource" uid="uid://w4xi0dhov4kf" path="res://quests/quest_1_goal.tres" id="3_1yik6"]
+[ext_resource type="PackedScene" uid="uid://brqbx0dxbd6ex" path="res://scenes/tile_map.tscn" id="4_agveu"]
+[ext_resource type="PackedScene" uid="uid://c3ntiqdh1swfq" path="res://scenes/pickup_fx.tscn" id="4_oc00q"]
+
+[node name="Bone" type="Node2D"]
+
+[node name="QuestItem" parent="." instance=ExtResource("1_74jvl")]
+quest = ExtResource("2_oc00q")
+goal = ExtResource("3_1yik6")
+pickup_fx_scene = ExtResource("4_oc00q")
+
+[node name="TileMap" parent="." instance=ExtResource("4_agveu")]
+position = Vector2(-7, -7)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 0, 0, 0)

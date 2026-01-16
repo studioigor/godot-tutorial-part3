@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxltm8b5pxc5b"]
+
+[ext_resource type="Script" uid="uid://dxscunrh3t51v" path="res://scripts/quest_panel.gd" id="1_ftbat"]
+
+[node name="QuestPanel" type="Panel"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_ftbat")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.10980392, 0.5882353, 0.22352941, 1)
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78431374, 0.023529412, 1)
+theme_override_font_sizes/font_size = 18
+
+[node name="DescLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+fit_content = true
+scroll_active = false
+
+[node name="GoalsBox" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AcceptButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Принять"
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Закрыть"
