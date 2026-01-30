@@ -4,7 +4,7 @@ extends Area2D
 
 var transitioning = false
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	transitioning = true
 	await transition_to_level()
 

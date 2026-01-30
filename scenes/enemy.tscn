@@ -1,0 +1,80 @@
+[gd_scene load_steps=14 format=3 uid="uid://cxf3j1ba4q6tx"]
+
+[ext_resource type="Texture2D" uid="uid://dnijckpabvwaj" path="res://assets/graphics/Character_animation/monsters_idle/skull/v2/skull_v2_1.png" id="1_5uy6h"]
+[ext_resource type="Script" uid="uid://boh0f81jqdb2q" path="res://scripts/enemy.gd" id="1_c4w8v"]
+[ext_resource type="Texture2D" uid="uid://bj810s3p2pqrl" path="res://assets/graphics/Character_animation/monsters_idle/skull/v2/skull_v2_2.png" id="2_c4w8v"]
+[ext_resource type="Texture2D" uid="uid://dum2kdxqmg4t2" path="res://assets/graphics/Character_animation/monsters_idle/skull/v2/skull_v2_3.png" id="3_xwavj"]
+[ext_resource type="Texture2D" uid="uid://bt4vhkesge48u" path="res://assets/graphics/Character_animation/monsters_idle/skull/v2/skull_v2_4.png" id="4_nenq2"]
+[ext_resource type="PackedScene" uid="uid://ciigjd4wfehje" path="res://scenes/hurtbox.tscn" id="6_nenq2"]
+[ext_resource type="PackedScene" uid="uid://cyn2iuoekh4ck" path="res://scenes/hitbox.tscn" id="7_md484"]
+[ext_resource type="PackedScene" uid="uid://cbrp7cbtjt37s" path="res://scenes/health_bar.tscn" id="8_md484"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_md484"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5uy6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c4w8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xwavj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nenq2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwavj"]
+radius = 32.01562
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipns3"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qclf"]
+size = Vector2(11, 18)
+
+[node name="Enemy" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_c4w8v")
+hp = 50
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_md484")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5uy6h")
+
+[node name="DetectionZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_xwavj")
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_nenq2")]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_ipns3")
+
+[node name="Hitbox" parent="." instance=ExtResource("7_md484")]
+collision_layer = 0
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(5.5, 0)
+shape = SubResource("RectangleShape2D_8qclf")
+
+[node name="HealthBar" parent="." instance=ExtResource("8_md484")]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

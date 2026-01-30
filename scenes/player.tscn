@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5tdcjg1dh3hr"]
+[gd_scene load_steps=18 format=3 uid="uid://c5tdcjg1dh3hr"]
 
 [ext_resource type="Script" uid="uid://cvvphbfu5ukwj" path="res://scripts/player.gd" id="1_qlg0r"]
 [ext_resource type="Script" uid="uid://cpphahsskp5ti" path="res://scripts/game_manager.gd" id="2_fjrip"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cisrvy5yn07x1" path="res://assets/graphics/Character_animation/priests_idle/priest1/v1/priest1_v1_3.png" id="4_smehm"]
 [ext_resource type="Texture2D" uid="uid://ciwjf2c4dxfv6" path="res://assets/graphics/Character_animation/priests_idle/priest1/v1/priest1_v1_4.png" id="5_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://bp27sxo36erpf" path="res://scenes/quest_hud.tscn" id="7_fjrip"]
+[ext_resource type="PackedScene" uid="uid://ciigjd4wfehje" path="res://scenes/hurtbox.tscn" id="8_smehm"]
+[ext_resource type="PackedScene" uid="uid://cyn2iuoekh4ck" path="res://scenes/hitbox.tscn" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://conph7u86tsuk" path="res://scripts/game_over_ui.gd" id="10_y4r1p"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e3sih"]
 animations = [{
@@ -51,6 +54,12 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pa8r4"]
 polygon = PackedVector2Array(4, 3, -6, 3, -6, 7, 4, 7)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur7pv"]
+size = Vector2(11, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
+size = Vector2(12, 23)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 script = ExtResource("1_qlg0r")
@@ -78,3 +87,71 @@ texture = SubResource("GradientTexture2D_15mv3")
 occluder = SubResource("OccluderPolygon2D_pa8r4")
 
 [node name="Panel" parent="." instance=ExtResource("7_fjrip")]
+
+[node name="Hurtbox" parent="." instance=ExtResource("8_smehm")]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ur7pv")
+
+[node name="Hitbox" parent="." instance=ExtResource("9_ur7pv")]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(6, 0.5)
+shape = SubResource("RectangleShape2D_y4r1p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartsLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -53.0
+offset_right = -13.0
+offset_bottom = 32.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 23
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_y4r1p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -29.0
+offset_right = 64.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Начать заново"
+
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Button" to="CanvasLayer/Panel" method="_on_button_pressed"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

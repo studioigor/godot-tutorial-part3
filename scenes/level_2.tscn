@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://xyrv02u17w1f"]
+[gd_scene load_steps=9 format=4 uid="uid://xyrv02u17w1f"]
 
 [ext_resource type="PackedScene" uid="uid://brqbx0dxbd6ex" path="res://scenes/tile_map.tscn" id="1_6cvei"]
 [ext_resource type="PackedScene" uid="uid://c5tdcjg1dh3hr" path="res://scenes/player.tscn" id="2_eqxsl"]
 [ext_resource type="PackedScene" uid="uid://bf4ssamplr5j4" path="res://scenes/bone.tscn" id="5_b4j7a"]
+[ext_resource type="PackedScene" uid="uid://cxf3j1ba4q6tx" path="res://scenes/enemy.tscn" id="6_wo48x"]
 [ext_resource type="PackedScene" uid="uid://ur4ndlxo0erv" path="res://scenes/torch.tscn" id="7_guvtl"]
+[ext_resource type="PackedScene" uid="uid://bhb7pcoxlw764" path="res://scenes/trap.tscn" id="7_y0kc7"]
 [ext_resource type="Script" uid="uid://dmbgub74eymf2" path="res://scripts/change_level.gd" id="9_wdtqu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2y5yt"]
@@ -22,6 +24,7 @@ tile_map_data = PackedByteArray("AAAEAAAAAAAEAAcAAAAAAAEAAAAIAAQAAAAAAAIAAAAIAAU
 color = Color(0.0062500215, 0.0037056135, 0.10858367, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_eqxsl")]
+z_index = 1
 position = Vector2(35, 30)
 
 [node name="Torch" parent="." instance=ExtResource("7_guvtl")]
@@ -43,6 +46,23 @@ shape = SubResource("RectangleShape2D_2y5yt")
 [node name="Bone" parent="." instance=ExtResource("5_b4j7a")]
 position = Vector2(104, 23)
 
+[node name="Enemy" parent="." instance=ExtResource("6_wo48x")]
+position = Vector2(74, 56)
+
+[node name="Trap" parent="." instance=ExtResource("7_y0kc7")]
+position = Vector2(86, 23)
+
+[node name="Trap2" parent="." instance=ExtResource("7_y0kc7")]
+position = Vector2(86, 39)
+
+[node name="Trap3" parent="." instance=ExtResource("7_y0kc7")]
+position = Vector2(103, 39)
+
+[node name="Trap4" parent="." instance=ExtResource("7_y0kc7")]
+position = Vector2(120, 39)
+
 [connection signal="body_entered" from="Trigger" to="Trigger" method="_on_body_entered"]
 
 [editable path="Player"]
+[editable path="Player/Hurtbox"]
+[editable path="Player/Hitbox"]

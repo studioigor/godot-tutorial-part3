@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://bhb7pcoxlw764"]
+
+[ext_resource type="Texture2D" uid="uid://tsfgpk5sa3u4" path="res://assets/graphics/items and trap_animation/peaks/peaks_3.png" id="1_7s8xa"]
+[ext_resource type="Texture2D" uid="uid://dg6w6toabf6ip" path="res://assets/graphics/items and trap_animation/peaks/peaks_4.png" id="2_btw44"]
+[ext_resource type="Texture2D" uid="uid://bnd2ljh6fc7km" path="res://assets/graphics/items and trap_animation/peaks/peaks_2.png" id="3_jl22o"]
+[ext_resource type="Texture2D" uid="uid://bwge2gvh5xa7s" path="res://assets/graphics/items and trap_animation/peaks/peaks_1.png" id="4_fp550"]
+[ext_resource type="Script" uid="uid://dyen2y42e6vld" path="res://scripts/trap.gd" id="5_1ywii"]
+[ext_resource type="PackedScene" uid="uid://cyn2iuoekh4ck" path="res://scenes/hitbox.tscn" id="6_2uf36"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_igmy8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7s8xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_btw44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jl22o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fp550")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdtqu"]
+size = Vector2(15, 14)
+
+[node name="Trap" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_igmy8")
+autoplay = "default"
+script = ExtResource("5_1ywii")
+
+[node name="Hitbox" parent="." instance=ExtResource("6_2uf36")]
+collision_layer = 0
+u_damage = 20
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_wdtqu")
+
+[editable path="Hitbox"]
